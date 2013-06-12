@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+require 'bitly'
+
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+   (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+
+if ARGV.count <= 0
+  puts "usage: #{$0} <list of urls to be shortened>"
+  exit 1
+end
+
+require '~/.bitly.rb'
+client = Bitly.client
+short_url = ""
+
+ARGV.compact.each do |url|
+  begin
+    short_url = client.shorten(url).short_url
+    puts url
+    puts "=> #{short_url}"
+    puts
+  rescue
+    puts "failed to shorten: #{url}"
+  end
+end
+
+if !short_url.empty? && OS.mac?
+  `echo '#{short_url}' | pbcopy`
+  puts "copied to copyboard (#{short_url})"
+end
