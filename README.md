@@ -2,23 +2,30 @@
 
 ## How to use this version
 * create a file under your home directory:
+
 ```ruby
+
 % cat ~/.bitly.rb 
 Bitly.configure do |config|
   config.api_version = 3
   config.login = "your_login"
   config.api_key = "your_key"
 end
+
 ```
 * Install the gem:
+
 ```sh
+
 cd ~/git
 git clone git://github.com/jiananlu/bitly.git
 cd bitly
 rake build
 rake install
+
 ```
 * Try the command in a new cli window:
+
 ```sh
 bitly https://www.google.com
 ```
