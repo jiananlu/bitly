@@ -13,6 +13,10 @@ Bitly.configure do |config|
 end
 
 ```
+get your login and key information from here:
+https://bitly.com/a/settings/advanced
+at the bottom: Legacy API Key
+
 * Install the gem:
 
 ```sh
